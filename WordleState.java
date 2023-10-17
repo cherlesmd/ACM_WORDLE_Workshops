@@ -3,74 +3,75 @@ import java.util.List;
 import java.util.Random;
 
 public class WordleState {
+	private int rowLength;
+	
+	public int getRowLength() {
+		return rowLength;
+	}
 
-    private int rowLength;
-    private int attemptsRemaining;
-    private int attempts;
-    private String word;
-    List<String> guesses;
+	public void setRowLength(int rowLength) {
+		this.rowLength = rowLength;
+	}
 
-    public WordleState(String word) {
-        this.word = word;
-        rowLength = this.word.length();
-        attempts = 6;
-        attemptsRemaining = attempts;
-        guesses = new ArrayList<String>();
-        System.out.println(word);
-    }
+	public int getAttemptsRemaining() {
+		return attemptsRemaining;
+	}
 
-    public int getRowLength() {
-        return rowLength;
-    }
+	public void setAttemptsRemaining(int attemptsRemaining) {
+		this.attemptsRemaining = attemptsRemaining;
+	}
 
-    public void setRowLength(int rowLength) {
-        this.rowLength = rowLength;
-    }
+	public int getAttempts() {
+		return attempts;
+	}
 
-    public int getAttemptsRemaining() {
-        return attemptsRemaining;
-    }
+	public void setAttempts(int attempts) {
+		this.attempts = attempts;
+	}
 
-    public void setAttemptsRemaining(int attemptsRemaining) {
-        this.attemptsRemaining = attemptsRemaining;
-    }
+	public String getWord() {
+		return word;
+	}
 
-    public int getAttempts() {
-        return attempts;
-    }
+	public void setWord(String word) {
+		this.word = word;
+	}
 
-    public void setAttempts(int attempts) {
-        this.attempts = attempts;
-    }
+	public List<String> getGuesses() {
+		return guesses;
+	}
 
-    public String getWord() {
-        return word;
-    }
+	public void setGuesses(List<String> guesses) {
+		this.guesses = guesses;
+	}
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public List<String> getGuesses() {
-        return guesses;
-    }
-
-    public void setGuesses(List<String> guesses) {
-        this.guesses = guesses;
-    }
-
-    public boolean isGameOver () {
-        return attemptsRemaining == 0 || didWin();
-    }
-
-    public boolean didWin() {
-        return guesses.contains(word);
-    }
-
-    public void guess(String str) {
-        if (str.length() == word.length()) {
-            guesses.add(str);
-            attemptsRemaining--;
-        }
-    }
+	private int attemptsRemaining;
+	private int attempts;
+	private String word;
+	List<String> guesses;
+	
+	public WordleState(String word) {
+		this.word = word;
+		this.rowLength = this.word.length();
+		this.attempts = 6;
+		this.attemptsRemaining = this.attempts;
+		this.guesses = new ArrayList<String>();
+		System.out.println(word);
+	}
+	
+	public boolean isGameOver () {
+		return this.attemptsRemaining == 0 || didWin();
+	}
+	
+	public boolean didWin() {
+		return this.guesses.contains(word); // if we have a correct guess we WIN
+	}
+	
+	public void guess(String str) {
+		// check if our guess is not too long / short
+		if (str.length() == word.length()) {
+			this.guesses.add(str);
+			this.attemptsRemaining--; // used up a try
+		}
+	}
 }
